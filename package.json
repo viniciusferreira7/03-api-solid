@@ -6,7 +6,8 @@
   "scripts": {
     "start:dev": "tsx watch src/server.ts",
     "start": "node build/server.js",
-    "build": "tsup src --out-dir build"
+    "build": "tsup src --out-dir build",
+    "lint": "eslint src --ext .ts --fix"
   },
   "repository": {
     "type": "git",
@@ -27,5 +28,8 @@
     "tsx": "^3.12.9",
     "typescript": "^5.2.2",
     "zod": "3.22.2"
+  },
+  "devDependencies": {
+    "@rocketseat/eslint-config": "2.1.0"
   }
 }
