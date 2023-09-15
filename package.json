@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/viniciusferreira7/03-api-solid#readme",
   "dependencies": {
+    "@prisma/client": "5.3.1",
     "@types/node": "^20.6.0",
     "dotenv": "16.3.1",
     "fastify": "^4.23.0",
@@ -30,6 +31,7 @@
     "zod": "3.22.2"
   },
   "devDependencies": {
-    "@rocketseat/eslint-config": "2.1.0"
+    "@rocketseat/eslint-config": "2.1.0",
+    "prisma": "5.3.1"
   }
 }
