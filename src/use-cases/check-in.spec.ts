@@ -1,29 +1,29 @@
 import { InMemoryCheckInsRepository } from '@/repositories/in-memory/in-memory-check-ins-repository'
+import { InMemoryGymsRepository } from '@/repositories/in-memory/in-memory-gyms-repository'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { CheckInUseCase } from './check-in'
-import { InMemoryGymsRepository } from '@/repositories/in-memory/in-memory-gyms-repository'
-import { Decimal } from '@prisma/client/runtime/library'
-import { ResourceNotFound } from './errors/resource-not-found-error'
+import { MaxDistanceError } from './errors/max-distance-error'
+import { MaxNumberOfCheckInsError } from './errors/max-number-of-check-ins-error'
 
 let checkInRepository: InMemoryCheckInsRepository
 let gymsRepository: InMemoryGymsRepository
 let sut: CheckInUseCase
 
 describe('Check-in Use Case', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     checkInRepository = new InMemoryCheckInsRepository()
     gymsRepository = new InMemoryGymsRepository()
     sut = new CheckInUseCase(checkInRepository, gymsRepository)
 
     vi.useFakeTimers()
 
-    gymsRepository.items.push({
+    await gymsRepository.create({
       id: 'gym-01',
       title: 'Typescript gym',
       description: '',
       phone: '',
-      latitude: new Decimal(53.9412631),
-      longitude: new Decimal(-97.8538462),
+      latitude: 53.9412631,
+      longitude: -97.8538462,
     })
   })
 
@@ -59,7 +59,7 @@ describe('Check-in Use Case', () => {
         userLatitude: 53.9412631,
         userLongitude: -97.8538462,
       }),
-    ).rejects.toBeInstanceOf(Error)
+    ).rejects.toBeInstanceOf(MaxNumberOfCheckInsError)
   })
   it('should be able to check in twice but in different days', async () => {
     vi.setSystemTime(new Date(2023, 10, 21, 8, 0, 0))
@@ -84,13 +84,13 @@ describe('Check-in Use Case', () => {
   })
 
   it('should not be able to check in on distant gym', async () => {
-    gymsRepository.items.push({
+    await gymsRepository.create({
       id: 'gym-02',
       title: 'Typescript gym',
       description: '',
       phone: '',
-      latitude: new Decimal(-23.7115803),
-      longitude: new Decimal(-46.6557999),
+      latitude: -23.7115803,
+      longitude: -46.6557999,
     })
 
     await expect(() =>
@@ -100,6 +100,6 @@ describe('Check-in Use Case', () => {
         userLatitude: 53.9412631,
         userLongitude: -97.8538462,
       }),
-    ).rejects.toBeInstanceOf(ResourceNotFound)
+    ).rejects.toBeInstanceOf(MaxDistanceError)
   })
 })
