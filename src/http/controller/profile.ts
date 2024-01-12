@@ -1,17 +1,18 @@
 import { InvalidCredentialsError } from '@/use-cases/errors/invalid-credentials-error'
+import { makeGetUserProfileUseCase } from '@/use-cases/factories/make-use-profile-use-case'
 import { FastifyReply, FastifyRequest } from 'fastify'
 
 export async function profile(request: FastifyRequest, reply: FastifyReply) {
-  try {
-    await request.jwtVerify()
-    console.log(request.user.sub)
-  } catch (err) {
-    if (err instanceof InvalidCredentialsError) {
-      return reply.status(400).send({ message: err.message })
-    }
+  await request.jwtVerify()
 
-    throw err
-  }
+  const getUserProfile = makeGetUserProfileUseCase()
 
-  return reply.status(200).send()
+  const { user } = await getUserProfile.execute({ userId: request.user.sub })
+
+  return reply.status(200).send({
+    user: {
+      ...user,
+      password_hash: undefined,
+    },
+  })
 }
