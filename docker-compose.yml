@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  03-api-solid-pg:
+    container_name: 03-api-solid-pg
+    image: bitnami/postgresql
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRESQL_USENAME=docker
+      - POSTGRESQL_PASSWORD=docker
+      - POSTGRESQL_DATABASE=03apisoligpg
