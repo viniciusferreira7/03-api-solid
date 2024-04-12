@@ -3,4 +3,4 @@ import fastify from 'fastify'
 
 export const app = fastify()
 
-const prisma = new PrismaClient()
+export const prisma = new PrismaClient()
