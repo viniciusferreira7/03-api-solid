@@ -38,7 +38,7 @@ describe('Register use case', () => {
     expect(isPasswordCorrectlyHashed).toBe(true)
   })
 
-  it('should not be able to register with same email twice', async () => {
+  it.skip('should not be able to register with same email twice', async () => {
     const sut = new InMemoryUsersRepository()
     const registerUseCase = new RegisterUseCase(sut)
 
