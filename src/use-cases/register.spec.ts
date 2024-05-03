@@ -1,8 +1,8 @@
 import { InMemoryUsersRepository } from '@/repositories/in-memory-users-repository'
-import { describe, expect, it } from 'vitest'
-import { RegisterUseCase } from './register'
 import { compare } from 'bcryptjs'
+import { describe, expect, it } from 'vitest'
 import { UserAlreadyExistsError } from './errors/user-already-exists-error'
+import { RegisterUseCase } from './register'
 
 describe('Register use case', () => {
   it('should be able to register', async () => {
@@ -38,7 +38,7 @@ describe('Register use case', () => {
     expect(isPasswordCorrectlyHashed).toBe(true)
   })
 
-  it.skip('should not be able to register with same email twice', async () => {
+  it('should not be able to register with same email twice', async () => {
     const sut = new InMemoryUsersRepository()
     const registerUseCase = new RegisterUseCase(sut)
 
