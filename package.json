@@ -6,6 +6,7 @@
   "scripts": {
     "prestart:dev": "docker compose up -d",
     "start:dev": "tsx watch --env-file=.env ./src/server.ts",
+    "dev": "tsx watch --env-file=.env ./src/server.ts",
     "start": "node build/server.js",
     "build": "tsup ./src --out-dir build",
     "lint": "eslint src --ext .ts --fix",
@@ -33,6 +34,7 @@
     "vitest": "1.5.3"
   },
   "dependencies": {
+    "@fastify/jwt": "8.0.1",
     "@prisma/client": "5.9.1",
     "bcryptjs": "2.4.3",
     "dayjs": "1.11.11",
