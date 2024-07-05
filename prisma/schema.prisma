@@ -42,4 +42,6 @@ model Gym {
   latitude    Decimal
   longitude   Decimal
   CheckIns    CheckIn[]
+
+  @@map("gyms")
 }

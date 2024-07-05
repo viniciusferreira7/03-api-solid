@@ -6,7 +6,7 @@ import { GymsRepository } from '@/repositories/gyms-repository'
 import { MaxDistanceError } from './errors/max-distance-error'
 import { MaxNumbersOfCheckInsError } from './errors/max-numbers-of-check-ins-error'
 import { ResourceNotFound } from './errors/resource-not-found-error'
-import { getDistanceBetweenCoordinates } from './utils/get-distance-between-coordinates'
+import { getDistanceBetweenCoordinates } from '../utils/get-distance-between-coordinates'
 
 interface CheckInUseCaseRequest {
   userId: string
