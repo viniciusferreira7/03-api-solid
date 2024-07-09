@@ -4,12 +4,12 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { app } from '@/app'
 
 describe('Authenticate (e2e)', () => {
-  beforeAll(async () => {
-    app.ready()
+ beforeAll(async () => {
+    await app.ready()
   })
 
   afterAll(async () => {
-    app.close()
+    await app.close()
   })
 
   it('should be able to authenticate', async () => {
