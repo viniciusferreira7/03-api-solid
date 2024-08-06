@@ -5,7 +5,7 @@ import { app } from '@/app'
 import { createAndAuthenticateUser } from '@/utils/test/create-and-authenticate-user'
 
 describe('Profile (e2e)', () => {
- beforeAll(async () => {
+  beforeAll(async () => {
     await app.ready()
   })
 
